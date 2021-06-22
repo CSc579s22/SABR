@@ -50,27 +50,27 @@ def cache_miss(f_path, src_ip):
     try:
         client=pymongo.MongoClient(serv_ip)
         print( "Connected successfully again!!!")
-    except pymongo.errors.ConnectionFailure, e:
+    except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB sadly: %s" % e)
     db = client.cachestatus
     table = db.cache1
     mpdinfo = db.mpdinfo
-    print "Cache miss\n"
+    print("Cache miss\n")
     evict_ids = []
     cache_size_res = table.find_one()
     #current_cache_size = int(cache_size_res['cache_size'])
-    print ("Cache key\n")
-    print f_path
+    print("Cache key\n")
+    print(f_path)
     get_mpd = mpdinfo.find_one({"urn":str(f_path)})
     if get_mpd is None:
-        print "File not found\n"
+        print("File not found\n")
     new_seg_size = get_mpd['seg_size'] 
     evict = False
     evict_seg_size = 0
     
     res = table.find_one({'$query': {}, '$orderby': {"date": -1}})
     if res is not None:
-        print "Get cache_size\n"
+        print("Get cache_size\n")
         pipe = [{'$group': {'_id': None, 'cache_size': {'$sum': '$seg_size'}}}]
         res2 = table.aggregate(pipe)
         estimated_size = loads(dumps(res2))
@@ -81,7 +81,7 @@ def cache_miss(f_path, src_ip):
     while evict is False:
         
         for res in table.find().sort([("date", pymongo.ASCENDING)]).limit(1):
-            print "Non empty cache\n"
+            print("Non empty cache\n")
             if res['date'] is not None: 
                 if estimated_cache_size > MAX_CACHE_SIZE:
                     table.remove({"date": res["date"]})
@@ -95,10 +95,10 @@ def cache_miss(f_path, src_ip):
     #estimated_cache_size+=new_seg_size
     if(table.find_one({"urn": f_path})) is None:
         post = {"urn": f_path, "seg_no": get_mpd['seg_no'], "qual_no": get_mpd['quality'], "seg_size": new_seg_size, "cache_size":estimated_cache_size, "hit_rate":1, "date": datetime.utcnow()}
-        print "Inserting URN: %s \n New cache Size %d in cache %s"%(f_path,estimated_cache_size,str(serv_ip))
+        print("Inserting URN: %s \n New cache Size %d in cache %s"%(f_path,estimated_cache_size,str(serv_ip)))
         post_id = table.insert_one(post).inserted_id
     else:
-        print "Content present in Cache. Don't insert\n"
+        print("Content present in Cache. Don't insert\n")
     
 if __name__ == "__main__":
         
@@ -109,17 +109,17 @@ if __name__ == "__main__":
     try:
         client=pymongo.MongoClient()
         print( "Connected successfully again!!!")
-    except pymongo.errors.ConnectionFailure, e:
+    except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB sadly: %s" % e)
     db = client.opencdn
     coll = db.cachemiss
     cursor = coll.find(cursor_type = CursorType.TAILABLE_AWAIT).max_await_time_ms (5000000000000000)
     
     while cursor.alive:
-        print "Tailing cursor\n"
+        print("Tailing cursor\n")
         try:
             doc = cursor.next()
-            print doc
+            print(doc)
             print('Generating a cache miss\n')
             cache_miss(str(doc["urn"]), str(doc["source_ip"]))
         except StopIteration:

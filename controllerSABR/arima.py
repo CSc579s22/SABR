@@ -239,7 +239,7 @@ def _forward_path():
     try:
         client=pymongo.MongoClient()
         print( "Connected successfully again!!!")
-    except pymongo.errors.ConnectionFailure, e:
+    except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB sadly: %s" % e)
     db = client.opencdn
     table = db.portmonitor    
@@ -254,7 +254,7 @@ def _forward_path():
     #print("TRAFFIC_MATRIX \n")
     for i in range(len(s_keys)):  
       for j in range (len(s_keys[i])):
-       print s_keys[i][j]
+       print(s_keys[i][j])
        min_bw=0.0
        for k in range (3, len(s_lsps[s_keys[i][j]][2])-2,3):
           sum_bw=0.0
@@ -298,7 +298,7 @@ def _forward_path():
     	  RO.r('x <- %s'%arima_in.r_repr())
     	  print("ARIMA array loaded\n")
        	  RO.r('fit <- auto.arima(x)')
-          print "ARIMA Fit returned\n"
+          print("ARIMA Fit returned\n")
           #RO.r('pdf( "Test%d_%s.pdf" )'%(k,s_keys[i][j]))
           get_res = RO.r('res <- forecast(fit,h=5)')
           sum_arima=0.0
@@ -335,9 +335,9 @@ def _forward_path():
        
        '''
        for x, y in post_qual.items():
-        print x
+        print(x)
         for item in y: # for each item in the list of qualities:
-            print item
+            print(item)
        '''
        post_id = table1.insert_one(post).inserted_id
       '''
@@ -379,14 +379,14 @@ def _forward_path():
     '''
 
 def get_cache_content(cache_ip_addr):
-    print ("Getting Cached content\n")
+    print("Getting Cached content\n")
     if cache_ip_addr == server_ctrl_ip[len(server_ctrl_ip)-1]:
         return serv_occ
     
     try:
         client=pymongo.MongoClient(cache_ip_addr)
         print( "Connected successfully again!!!")
-    except pymongo.errors.ConnectionFailure, e:
+    except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB sadly: %s" % e)
     db = client.cachestatus
     table = db.cache1
@@ -398,8 +398,8 @@ def get_cache_content(cache_ip_addr):
         content_id = video_id + "-" + str(cache_entry["seg_no"])
         cache_occ[content_id].append(int(cache_entry["qual_no"]))
     if table.find_one() is not None:
-        print cache_ip_addr
-        print cache_occ[content_id] 
+        print(cache_ip_addr)
+        print(cache_occ[content_id]) 
         #cache_occ[content_id].append(int(cache_entry["qual_no"])+1)
     return cache_occ
 
@@ -410,7 +410,7 @@ def launch():
     try:
         client=pymongo.MongoClient(server_ctrl_ip[len(server_ctrl_ip)-1])
         print( "Connected successfully again!!!")
-    except pymongo.errors.ConnectionFailure, e:
+    except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB sadly: %s" % e)
     db = client.cachestatus
     table = db.mpdinfo

@@ -92,10 +92,8 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     cl_command = "cd /users/dbhat0/astream_dash_bolao; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BigBuckBunny_2s_mod" + str(int(zipf_index)+1) + "/www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
     try:
         stdin,stdout,stderr=ssh.exec_command(cl_command)
-        stringin = stdin.read().decode('ascii').strip("\n")
-        stringerr = stdout.read().decode('ascii').strip("\n")
-        stringout = stderr.read().decode('ascii').strip("\n")
-        print("stdin: {}".format(stringin))
+        stringout = stdout.read().decode('ascii').strip("\n")
+        stringerr = stderr.read().decode('ascii').strip("\n")
         print("stdout: {}".format(stringout))
         print("stderr: {}".format(stringerr))
         ssh.close()

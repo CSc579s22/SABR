@@ -30,7 +30,8 @@ key_location="<extended_key_file_location>"
 MAX_TRIALS = 1
 zipf_dist = dict()
 client_ip=[<list of client IPs>]
-client_ports = [<list of client ports>]
+client_ports = []
+port = 22
 client_hosts_zipf = [<list of client IPs>]
 server_ip=[<list of server IPs>]
 client_hosts =[]
@@ -94,8 +95,14 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     stringout = str(stdout.readlines()) + str(ipaddress) + str(ports)
     print(stringout)
     ssh.close()
+    
+def build_ports(port):
+    for i in range(0, len(client_ip)):
+        client_ports.append(int(port))
 
 if __name__ == "__main__":
+    global port
+    build_ports(port)  # Builds ports list with custom port... 22 since we use SSH
     try:
         for client in client_hosts_zipf:
             zipf_dist[client] = gen_zipf(2, 49)

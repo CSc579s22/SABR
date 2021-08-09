@@ -2,7 +2,7 @@
 
 USER="<usr>"
 KEY_NAME="<ssh_key_filename>"  # The path is handled in the loop - only do the name
-PORTNUMBER=22
+PORT_NUMBER=22
 CLIENT_IPS=<<client IP address list>>
 
 counter=0

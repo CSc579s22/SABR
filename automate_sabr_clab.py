@@ -59,13 +59,13 @@ def dash_server(ipaddress,run):
     try:
         ssh.connect(ipaddress,username=user,key_filename=key_location)
     except paramiko.AuthenticationException:
-        print("[-] Authentication Exception! ...")
+        print("[- server] Authentication Exception! ...")
 
     except paramiko.SSHException:
-        print("[-] SSH Exception! ...")
+        print("[- server] SSH Exception! ...")
 
     works = ipaddress.strip('\n')+','+user
-    print('[+] '+ works)
+    print('[+ server] '+ works)
     stdin,stdout,stderr=ssh.exec_command("mongorestore --collection cache1 --db cachestatus bolaodump/cachestatus/cache1.bson")
 
     print(stdout.read())
@@ -81,21 +81,24 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     try:
         ssh.connect(ipaddress,username=user,port=ports,key_filename=key_location)
     except paramiko.AuthenticationException:
-        print("[-] Authentication Exception! ...")   
+        print("[- client] Authentication Exception! ...")   
          
     except paramiko.SSHException:
-        print("[-] SSH Exception! ...")
+        print("[- client] SSH Exception! ...")
          
     works = ipaddress.strip('\n')+','+user  
-    print('[+] '+ works)
+    print('[+ client] '+ works)
     #Insert relevant player command here
     cl_command = "cd /users/dbhat0/astream_dash_bolao; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BigBuckBunny_2s_mod" + str(int(zipf_index)+1) + "/www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
-    stdin,stdout,stderr=ssh.exec_command(cl_command)
-    stringerr = str(stderr.readlines()[1:]) + str(ipaddress) + str(ports)
-    stringout = str(stdout.readlines()) + str(ipaddress) + str(ports)
-    print(stringout)
-    print(stringerr)
-    ssh.close()
+    try:
+        stdin,stdout,stderr=ssh.exec_command(cl_command)
+        stringerr = str(stderr.readlines()[1:]) + str(ipaddress) + str(ports)
+        stringout = str(stdout.readlines()) + str(ipaddress) + str(ports)
+        print(stringout)
+        print(stringerr)
+        ssh.close()
+    except EOFError as e:
+        print('EOF Error: ' + str(e))
     
 def build_ports(port):
     for i in range(0, len(client_ip)):
@@ -144,5 +147,5 @@ if __name__ == "__main__":
                 str_zipf = str(client_hosts_zipf[client]) + str(client_ports[client])
                 zipf_dist[str_zipf] = zipf_collect[z_index]
                 z_index += 1
-    except Exception:
-        print('[-] General Exception')
+    except Exception as e:
+        print('[-] General Exception: ' + str(e))

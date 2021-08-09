@@ -111,14 +111,6 @@ if __name__ == "__main__":
         for client in client_hosts_zipf:
             zipf_dist[client] = gen_zipf(2, 49)
             print(zipf_dist[client], client)
-    # Enable to reset cache
-    '''
-        count = 0
-        while count < len(server_ip):
-            concat = str(server_ip[count])
-            threading.Thread(target=dash_server, args=concat).start()
-            count += 1
-    '''
             zipf_index = 0
         for no_of_trials in range(MAX_TRIALS):
             for repeat in range(4):

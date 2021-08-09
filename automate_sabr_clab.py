@@ -24,7 +24,8 @@ import threading
 import os
 import time
 from collections import defaultdict
-user="dbhat0"
+user="cc"
+key_location="<extended_key_file_location>"
 
 MAX_TRIALS = 1
 zipf_dist = dict()
@@ -55,7 +56,7 @@ def dash_server(ipaddress,run):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        ssh.connect(ipaddress,username=user,password=<password for CloudLab key goes here>,key_filename=<<Path to SSH key>>)
+        ssh.connect(ipaddress,username=user,key_filename=key_location)
     except paramiko.AuthenticationException:
         print("[-] Authentication Exception! ...")
 
@@ -77,7 +78,7 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        ssh.connect(ipaddress,username=user,port=ports,password="<CloudLab Password>",key_filename="<Path to SSH key>")
+        ssh.connect(ipaddress,username=user,port=ports,key_filename=key_location)
     except paramiko.AuthenticationException:
         print("[-] Authentication Exception! ...")   
          

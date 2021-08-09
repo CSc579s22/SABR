@@ -94,6 +94,7 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     stringerr = str(stderr.readlines()[1:]) + str(ipaddress) + str(ports)
     stringout = str(stdout.readlines()) + str(ipaddress) + str(ports)
     print(stringout)
+    print(stringerr)
     ssh.close()
     
 def build_ports(port):

@@ -140,7 +140,9 @@ if __name__ == "__main__":
                     count += 1
                 time.sleep(3)
                 zipf_index += 1
-            time.sleep(310.0)
+            if MAX_TRIALS > 1:
+                print("Trial {} complete!".format(no_of_trials))
+                time.sleep(310.0)
         if zipf_index >= 43:
             zipf_index = 0
             for client in range(0, len(client_hosts_zipf)):

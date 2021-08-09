@@ -91,7 +91,7 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     cl_command = "cd /users/dbhat0/astream_dash_bolao; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BigBuckBunny_2s_mod" + str(int(zipf_index)+1) + "/www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
     stdin,stdout,stderr=ssh.exec_command(cl_command)
     stringerr = str(stderr.readlines()[1:]) + str(ipaddress) + str(ports)
-    stringout = str(stderr.readlines()) + str(ipaddress) + str(ports)
+    stringout = str(stdout.readlines()) + str(ipaddress) + str(ports)
     print(stringout)
     ssh.close()
 

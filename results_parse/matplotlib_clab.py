@@ -63,7 +63,7 @@ def spectrum_calc(bitrate_history):
 			#print "zh " + str(zh)
 			zzh = (1 / float(num_change)) * float(zh)
 			#print zzh
-		
+
 			ht = bitrates.index(bitrate_history[j])
 			#print ht
 			second_half = (ht - zzh) ** 2
@@ -93,17 +93,17 @@ for name in glob.glob('<Path_to_results>/10runs_bolao_v*/bola//dash_buffer*/DASH
 	#list_time=list_time-list_time[1]
 
 	list_quals=list_quals[~np.isnan(list_quals)]
-	
+
 	if list_quals.size>5:
 		rebuffering_perc = (list_time[len(list_time)-1] - 299.0)*100/ 299.0
 		if (list_time[len(list_time)-1] - 299.0)<0:
-			print name
+			print(name)
 			sara_unfin+=1
 		else:
 			rebuf_arr.append(rebuffering_perc)
 
-print "BOLAO_qual"
-print "Rebuffering Time"
+print("BOLAO_qual")
+print("Rebuffering Time")
 sabr_unfin=0
 nparry2 = np.asarray(rebuf_arr)
 avg_avgbr2=nparry2.mean()
@@ -115,17 +115,17 @@ for name in glob.glob('<Path_to_results>/10runs_bolao_v*/sabr_bola/dash_buffer*/
 	list_time=np.genfromtxt(name,delimiter=',', usecols=0, dtype=float)
 
 	list_quals=list_quals[~np.isnan(list_quals)]
-	
+
 	if list_quals.size>5:
 		rebuffering_perc = (list_time[len(list_time)-1] - 299.0)*100/ 299.0
 		if (list_time[len(list_time)-1] - 299.0)<0:
-			print name
+			print(name)
 			sabr_unfin+=1
 		else:
 			rebuf_arr2.append(rebuffering_perc)
 
-print "SABR - BOLAO_qual"
-print "Rebuffering Time"
+print("SABR - BOLAO_qual")
+print("Rebuffering Time")
 nparry = np.asarray(rebuf_arr2)
 avg_avgbr=nparry.mean()
 sd_avgbr=np.std(nparry)
@@ -134,8 +134,8 @@ with open('abr_rebuffers_BOLAO_qual.csv', 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(izip(rebuf_arr, rebuf_arr2))
 
-print "Magnitude and Quality"
-print "BOLAO_qual"
+print("Magnitude and Quality")
+print("BOLAO_qual")
 for name in glob.glob('<Path_to_results>/10runs_bolao_v*/bola//server_log*/SERVER*'):
 	f1=open(name)
 	lines = f1.readlines()[1:]
@@ -157,10 +157,10 @@ for name in glob.glob('<Path_to_results>/10runs_bolao_v*/bola//server_log*/SERVE
 cnt_of_switches = np.asarray(cnt_of_switches)
 avg_cntsw=cnt_of_switches.mean()
 sd_cntsw=np.std(cnt_of_switches)
-print "SABR - BOLAO_qual"
+print("SABR - BOLAO_qual")
 
 for name in glob.glob('<Path_to_results>/10runs_bolao_v*/sabr_bola/server_log*/SERVER*'):
-	
+
 	f1=open(name)
 	lines = f1.readlines()[1:]
 	if len(lines)>5:
@@ -189,12 +189,12 @@ sd_cntsw2=np.std(cnt_of_switches2)
 with open('abr_numofswitches_BOLAO_qual.csv', 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(izip(cnt_of_switches, cnt_of_switches2))
-    
+
 
 
 count=0
 spectrum_array = []
-print "Bitrates"
+print("Bitrates")
 for name in glob.glob('<Path_to_results>/10runs_bolao_v*/bola//server_log*/SERVER_LOG*'):
 	count+=1
 	list_quals=np.genfromtxt(name,delimiter=',', usecols=2, dtype=float)
@@ -207,19 +207,19 @@ nparry = np.asarray(bitrate_array)
 
 avg_avgbr=nparry.mean()
 sd_avgbr=np.std(nparry)
-print "BOLAO_qual"
-print avg_avgbr
-print sd_avgbr
-print "Spectrum"
+print("BOLAO_qual")
+print(avg_avgbr)
+print(sd_avgbr)
+print("Spectrum")
 nparry = np.asarray(spectrum_array)
 avg_avgbr=nparry.mean()
 sd_avgbr=np.std(nparry)
-print "BOLAO_qual"
-print avg_avgbr
-print sd_avgbr
+print("BOLAO_qual")
+print(avg_avgbr)
+print(sd_avgbr)
 
-print "COUNT"
-print count
+print("COUNT")
+print(count)
 count=0
 spectrum_array2 = []
 for name in glob.glob('<Path_to_results>/10runs_bolao_v*/sabr_bola/server_log*/SERVER*'):
@@ -234,16 +234,16 @@ for name in glob.glob('<Path_to_results>/10runs_bolao_v*/sabr_bola/server_log*/S
 nparry2 = np.asarray(bitrate_array2)
 avg_avgbr2=nparry2.mean()
 sd_avgbr2=np.std(nparry2)
-print "SABR - BOLAO_qual"
-print avg_avgbr2
-print sd_avgbr2
-print "Spectrum"
+print("SABR - BOLAO_qual")
+print(avg_avgbr2)
+print(sd_avgbr2)
+print("Spectrum")
 nparry2 = np.asarray(spectrum_array2)
 avg_avgbr2=nparry2.mean()
 sd_avgbr2=np.std(nparry2)
-print "SABR - BOLAO_qual"
-print avg_avgbr2
-print sd_avgbr2
+print("SABR - BOLAO_qual")
+print(avg_avgbr2)
+print(sd_avgbr2)
 
 
 
@@ -254,5 +254,3 @@ with open('abr_fullcap_rate_BOLAO_qual.csv', 'wb') as f:
 with open('abr_magofswitches_BOLAO_qual.csv', 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(izip(spectrum_array, spectrum_array2))
-
-

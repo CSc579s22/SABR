@@ -12,12 +12,11 @@ import matplotlib.ticker as ticker
 import datetime as dt
 import time
 import dateutil
-from StringIO import StringIO
+from io import StringIO
 import math
 import glob
 from pylab import *
 import csv
-from itertools import izip
 import statsmodels.api as sm # recommended import according to the docs
 STARTUP_qual=150
 bitrate_array =[]
@@ -132,7 +131,7 @@ sd_avgbr=np.std(nparry)
 
 with open('abr_rebuffers_BOLAO_qual.csv', 'wb') as f:
     writer = csv.writer(f)
-    writer.writerows(izip(rebuf_arr, rebuf_arr2))
+    writer.writerows(zip(rebuf_arr, rebuf_arr2))
 
 print("Magnitude and Quality")
 print("BOLAO_qual")
@@ -188,7 +187,7 @@ sd_cntsw2=np.std(cnt_of_switches2)
 
 with open('abr_numofswitches_BOLAO_qual.csv', 'wb') as f:
     writer = csv.writer(f)
-    writer.writerows(izip(cnt_of_switches, cnt_of_switches2))
+    writer.writerows(zip(cnt_of_switches, cnt_of_switches2))
 
 
 
@@ -249,8 +248,8 @@ print(sd_avgbr2)
 
 with open('abr_fullcap_rate_BOLAO_qual.csv', 'wb') as f:
     writer = csv.writer(f)
-    writer.writerows(izip(bitrate_array, bitrate_array2))
+    writer.writerows(zip(bitrate_array, bitrate_array2))
 	#writer.write
 with open('abr_magofswitches_BOLAO_qual.csv', 'wb') as f:
     writer = csv.writer(f)
-    writer.writerows(izip(spectrum_array, spectrum_array2))
+    writer.writerows(zip(spectrum_array, spectrum_array2))

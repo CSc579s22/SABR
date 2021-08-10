@@ -89,7 +89,7 @@ check_dash2 = []
 
 sara_unfin=0
 rebuf_arr = []
-for name in glob.glob(path+'/10runs_bolao_v*/bola//dash_buffer*/DASH_BUFFER*'):
+for name in glob.glob(path+'/dash_buffer*/DASH_BUFFER*'):
 	list_quals=np.genfromtxt(name,delimiter=',', usecols=1, dtype=float)
 	list_time=np.genfromtxt(name,delimiter=',', usecols=0, dtype=float)
 	#list_time=list_time-list_time[1]
@@ -112,7 +112,7 @@ avg_avgbr2=nparry2.mean()
 sd_avgbr2=np.std(nparry2)
 
 rebuf_arr2 = []
-for name in glob.glob(path+'/10runs_bolao_v*/sabr_bola/dash_buffer*/DASH_BUFFER_*'):
+for name in glob.glob(path+'/dash_buffer*/DASH_BUFFER_*'):
 	list_quals=np.genfromtxt(name,delimiter=',', usecols=1, dtype=float)
 	list_time=np.genfromtxt(name,delimiter=',', usecols=0, dtype=float)
 
@@ -138,7 +138,7 @@ with open('abr_rebuffers_BOLAO_qual.csv', 'wb') as f:
 
 print("Magnitude and Quality")
 print("BOLAO_qual")
-for name in glob.glob(path+'/10runs_bolao_v*/bola//server_log*/SERVER*'):
+for name in glob.glob(path+'/server_log*/SERVER*'):
 	f1=open(name)
 	lines = f1.readlines()[1:]
 	if len(lines)>5:
@@ -161,7 +161,7 @@ avg_cntsw=cnt_of_switches.mean()
 sd_cntsw=np.std(cnt_of_switches)
 print("SABR - BOLAO_qual")
 
-for name in glob.glob(path+'/10runs_bolao_v*/sabr_bola/server_log*/SERVER*'):
+for name in glob.glob(path+'/server_log*/SERVER*'):
 
 	f1=open(name)
 	lines = f1.readlines()[1:]
@@ -197,7 +197,7 @@ with open('abr_numofswitches_BOLAO_qual.csv', 'wb') as f:
 count=0
 spectrum_array = []
 print("Bitrates")
-for name in glob.glob(path+'>/10runs_bolao_v*/bola//server_log*/SERVER_LOG*'):
+for name in glob.glob(path+'>/server_log*/SERVER_LOG*'):
 	count+=1
 	list_quals=np.genfromtxt(name,delimiter=',', usecols=2, dtype=float)
 	list_time=np.genfromtxt(name,delimiter=',', usecols=0, dtype=float)
@@ -224,7 +224,7 @@ print("COUNT")
 print(count)
 count=0
 spectrum_array2 = []
-for name in glob.glob(path+'/10runs_bolao_v*/sabr_bola/server_log*/SERVER*'):
+for name in glob.glob(path+'/server_log*/SERVER*'):
 	count+=1
 	list_quals=np.genfromtxt(name,delimiter=',', usecols=2, dtype=float)
 	spec_qual = spectrum_calc(list_quals[1:])

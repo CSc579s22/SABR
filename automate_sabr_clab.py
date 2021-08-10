@@ -105,7 +105,6 @@ def build_ports(port):
         client_ports.append(int(port))
 
 if __name__ == "__main__":
-    global port
     build_ports(port)  # Builds ports list with custom port... 22 since we use SSH
     try:
         for client in client_hosts_zipf:

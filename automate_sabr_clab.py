@@ -68,8 +68,8 @@ def dash_server(ipaddress,run):
     print('[+ server] '+ works)
     stdin,stdout,stderr=ssh.exec_command("mongorestore --collection cache1 --db cachestatus bolaodump/cachestatus/cache1.bson")
 
-    print(stdout.read())
-    print(stderr.read())
+    print("stdout: {}".format(stdout.read().decode('ascii'))
+    print("stderr: {}".format(stdout.read().decode('ascii'))
     ssh.close()
 '''
     This API is used to run different clients with and without SABR modifications
@@ -93,8 +93,8 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     try:
         stdin,stdout,stderr=ssh.exec_command(cl_command)
         
-        print(stdout.read())
-        print(stderr.read())
+        print("stdout: {}".format(stdout.read().decode('ascii'))
+        print("stderr: {}".format(stdout.read().decode('ascii'))
         ssh.close()
     except EOFError as e:
         quit()

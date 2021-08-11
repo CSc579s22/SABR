@@ -68,8 +68,8 @@ def dash_server(ipaddress,run):
     print('[+ server] '+ works)
     stdin,stdout,stderr=ssh.exec_command("mongorestore --collection cache1 --db cachestatus bolaodump/cachestatus/cache1.bson")
 
-    print("stdout: {}".format(stdout.read().decode('ascii'))
-    print("stderr: {}".format(stdout.read().decode('ascii'))
+    print("stdout: {}".format(stdout.read().decode('ascii')))
+    print("stderr: {}".format(stdout.read().decode('ascii')))
     ssh.close()
 '''
     This API is used to run different clients with and without SABR modifications

@@ -21,10 +21,10 @@ do
         rm -r server_log${counter}
     fi
     mkdir dash_runtime${counter}
-    scp -i ~/.ssh/${KEY_NAME} -P ${PORT_NUMBER} ${USER}@${ip}:/home/${USER}/astream_dash_bolao/ASTREAM_LOGS/DASH_RUNTIME_LOG_* dash_runtime${counter}/
+    scp -i ~/.ssh/${KEY_NAME} -P ${PORT_NUMBER} ${USER}@${ip}:/home/${USER}/AStream/ASTREAM_LOGS/DASH_RUNTIME_LOG_* dash_runtime${counter}/
     mkdir dash_buffer${counter}
-    scp -i ~/.ssh/${KEY_NAME} -P ${PORT_NUMBER} ${USER}@${ip}:/home/${USER}/astream_dash_bolao/ASTREAM_LOGS/DASH_BUFFER_LOG_* dash_buffer${counter}/
+    scp -i ~/.ssh/${KEY_NAME} -P ${PORT_NUMBER} ${USER}@${ip}:/home/${USER}/AStream/ASTREAM_LOGS/DASH_BUFFER_LOG_* dash_buffer${counter}/
     mkdir server_log${counter}
-    scp -i ~/.ssh/${KEY_NAME} -P ${PORT_NUMBER} ${USER}@${ip}:/home/${USER}/astream_dash_bolao/ASTREAM_LOGS/SERVER_LOG_* server_log${counter}/
+    scp -i ~/.ssh/${KEY_NAME} -P ${PORT_NUMBER} ${USER}@${ip}:/home/${USER}/AStream/ASTREAM_LOGS/SERVER_LOG_* server_log${counter}/
     counter=$((counter+1))
 done

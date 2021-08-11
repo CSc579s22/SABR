@@ -93,8 +93,8 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     try:
         stdin,stdout,stderr=ssh.exec_command(cl_command)
         
-        print("stdout: {}".format(stdout.read().decode('ascii'))
-        print("stderr: {}".format(stdout.read().decode('ascii'))
+        print("stdout: {}".format(stdout.read().decode('ascii')))
+        print("stderr: {}".format(stdout.read().decode('ascii')))
         ssh.close()
     except EOFError as e:
         quit()

@@ -92,10 +92,9 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     cl_command = "cd /home/" + user + "/astream_dash_bolao; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BigBuckBunny_2s_mod" + str(int(zipf_index)+1) + "/www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
     try:
         stdin,stdout,stderr=ssh.exec_command(cl_command)
-        stringout = stdout.read().decode('ascii').strip("\n")
-        stringerr = stderr.read().decode('ascii').strip("\n")
-        print("stdout: {}".format(stringout))
-        print("stderr: {}".format(stringerr))
+        
+        print(stdout.read())
+        print(stderr.read())
         ssh.close()
     except EOFError as e:
         quit()

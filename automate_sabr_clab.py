@@ -25,21 +25,25 @@ import os
 import time
 from collections import defaultdict
 user="cc"
-key_location="<extended_key_file_location>"
-
-MAX_TRIALS = 1
 zipf_dist = dict()
-client_ip=[<list of client IPs>]
-client_ports = []
-port = 22
-client_hosts_zipf = [<list of client IPs>]
-server_ip=[<list of server IPs>]
-client_hosts =[]
 
-client_hosts1 = [<list of client IPs Group A>]
-client_hosts2 = [<list of client IPs Group B>]
-client_hosts3 = [<list of client IPs Group C>]
-client_hosts4 = [<list of client IPs Group D>]
+# Configure runtime environment
+MAX_TRIALS = 1
+key_location="<extended_key_file_location>"
+client_ip=[<list of client IPs>]
+server_ip=[<list of server IPs>]
+port = 22
+
+# The following lists are constructed in the main method.
+client_ports = []
+
+client_hosts =[]
+client_hosts1 = []
+client_hosts2 = []
+client_hosts3 = []
+client_hosts4 = []
+
+client_hosts_zipf = []
 
 
 
@@ -89,7 +93,7 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     works = ipaddress.strip('\n')+','+user  
     print('[+ client] '+ works)
     #Insert relevant player command here
-    cl_command = "cd /home/" + user + "/astream_dash_bolao; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BigBuckBunny_2s_mod" + str(int(zipf_index)+1) + "/www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
+    cl_command = "cd /home/" + user + "/AStream; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BigBuckBunny_2s_mod" + str(int(zipf_index)+1) + "/www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
     try:
         stdin,stdout,stderr=ssh.exec_command(cl_command)
         
@@ -104,7 +108,20 @@ def build_ports(port):
         client_ports.append(int(port))
 
 if __name__ == "__main__":
-    build_ports(port)  # Builds ports list with custom port... 22 since we use SSH
+    # Create Client IP lists
+    for i in client_ip:
+        client_hosts.append(i)
+        client_hosts_zipf.append(i)
+    for i in client_ip[0:int(len(client_ip))/4]:
+        client_hosts1.append(i)
+    for i in client_ip[int(len(client_ip))/4:int(len(client_ip))/2]:
+        client_hosts2.append(i)
+    for i in client_ip[int(len(client_ip))/2:len(client_ip) - int(len(client_ip)/4)]:
+        client_hosts3.append(i)
+    for i in client_ip[len(client_ip) - int(len(client_ip)/4):len(client_ip)]:
+        client_hosts4.append(i)
+    # Create Client Port list
+    build_ports(port)  # Builds ports list with global port
     try:
         for client in client_hosts_zipf:
             zipf_dist[client] = gen_zipf(2, 49)

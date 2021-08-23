@@ -112,11 +112,11 @@ if __name__ == "__main__":
     for i in client_ip:
         client_hosts.append(i)
         client_hosts_zipf.append(i)
-    for i in client_ip[0:int(len(client_ip))/4]:
+    for i in client_ip[0:int(len(client_ip)/4)]:
         client_hosts1.append(i)
-    for i in client_ip[int(len(client_ip))/4:int(len(client_ip))/2]:
+    for i in client_ip[int(len(client_ip)/4):int(len(client_ip)/4)]:
         client_hosts2.append(i)
-    for i in client_ip[int(len(client_ip))/2:len(client_ip) - int(len(client_ip)/4)]:
+    for i in client_ip[int(len(client_ip)/2):len(client_ip) - int(len(client_ip)/4)]:
         client_hosts3.append(i)
     for i in client_ip[len(client_ip) - int(len(client_ip)/4):len(client_ip)]:
         client_hosts4.append(i)

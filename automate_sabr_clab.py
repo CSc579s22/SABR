@@ -10,12 +10,12 @@ socket.setdefaulttimeout(5)
 
 import numpy as np
 from scipy.stats import zipf
-import random 
-import bisect 
-import math 
+import random
+import bisect
+import math
 
 
-import subprocess 
+import subprocess
 import paramiko
 import logging
 logging.basicConfig()
@@ -32,6 +32,7 @@ MAX_TRIALS = 1
 key_location="<extended_key_file_location>"
 client_ip=[<list of client IPs>]
 server_ip=[<list of server IPs>]
+cache_ip=[<list of cache IPs>]
 port = 22
 
 # The following lists are constructed in the main method.
@@ -57,7 +58,7 @@ def gen_zipf(a,n):
 
 def dash_server(ipaddress,run):
     global user
-    
+
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
@@ -85,24 +86,24 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     try:
         ssh.connect(ipaddress,username=user,port=ports,key_filename=key_location)
     except paramiko.AuthenticationException:
-        print("[- client] Authentication Exception! ...")   
-         
+        print("[- client] Authentication Exception! ...")
+
     except paramiko.SSHException:
         print("[- client] SSH Exception! ...")
-         
-    works = ipaddress.strip('\n')+','+user  
+
+    works = ipaddress.strip('\n')+','+user
     print('[+ client] '+ works)
     #Insert relevant player command here
-    cl_command = "cd /home/" + user + "/AStream; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BigBuckBunny_2s_mod" + str(int(zipf_index)+1) + "/www-itec.uni-klu.ac.at/ftp/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
+    cl_command = "cd /home/" + user + "/AStream; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BBB/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
     try:
         stdin,stdout,stderr=ssh.exec_command(cl_command)
-        
+
         print("stdout: {}".format(stdout.read().decode('ascii')))
         print("stderr: {}".format(stdout.read().decode('ascii')))
         ssh.close()
     except EOFError as e:
         quit()
-    
+
 def build_ports(port):
     for i in range(0, len(client_ip)):
         client_ports.append(int(port))
@@ -133,15 +134,15 @@ if __name__ == "__main__":
                 while count < len(client_ip):
                     concat = str(client_ip[count])
                     if (concat in client_hosts1) and ((count % 2) == 0):
-                        mpd_ip = "10.10.10.4"
+                        mpd_ip = cache_ips[0]
                     elif (concat in client_hosts2) and ((count % 2) != 0):
-                        mpd_ip = "10.10.10.16"
+                        mpd_ip = cache_ips[1]
                     elif (concat in client_hosts3) and ((count % 2) == 0):
-                        mpd_ip = "10.10.10.12"
+                        mpd_ip = cache_ips[2]
                     elif (concat in client_hosts4) and ((count % 2) != 0):
-                        mpd_ip = "10.10.10.27"
+                        mpd_ip = cache_ips[3]
                     else:
-                        mpd_ip = "10.10.10.1"
+                        mpd_ip = server_ips[0]
                     threading.Thread(target=dash_client, args=(concat, client_ports[count], zipf_index, mpd_ip)).start()
                     time.sleep(1)
                     count += 1

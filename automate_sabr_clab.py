@@ -134,15 +134,15 @@ if __name__ == "__main__":
                 while count < len(client_ip):
                     concat = str(client_ip[count])
                     if (concat in client_hosts1) and ((count % 2) == 0):
-                        mpd_ip = cache_ips[0]
+                        mpd_ip = cache_ip[0]
                     elif (concat in client_hosts2) and ((count % 2) != 0):
-                        mpd_ip = cache_ips[1]
+                        mpd_ip = cache_ip[1]
                     elif (concat in client_hosts3) and ((count % 2) == 0):
-                        mpd_ip = cache_ips[2]
+                        mpd_ip = cache_ip[2]
                     elif (concat in client_hosts4) and ((count % 2) != 0):
-                        mpd_ip = cache_ips[3]
+                        mpd_ip = cache_ip[3]
                     else:
-                        mpd_ip = server_ips[0]
+                        mpd_ip = server_ip[0]
                     threading.Thread(target=dash_client, args=(concat, client_ports[count], zipf_index, mpd_ip)).start()
                     time.sleep(1)
                     count += 1

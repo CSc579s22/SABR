@@ -29,7 +29,7 @@ zipf_dist = dict()
 
 # Configure runtime environment
 MAX_TRIALS = 1
-key_location="<extended_key_file_location>"
+key_name="<name_of_private_key>"
 client_ip=[<list of client IPs>]
 server_ip=[<list of server IPs>]
 cache_ip=[<list of cache IPs>]
@@ -62,7 +62,7 @@ def dash_server(ipaddress,run):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        ssh.connect(ipaddress,username=user,key_filename=key_location)
+        ssh.connect(ipaddress,username=user,key_filename='/home/{}/.ssh/{}'.format(user, key_name))
     except paramiko.AuthenticationException:
         print("[- server] Authentication Exception! ...")
 
@@ -84,7 +84,7 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        ssh.connect(ipaddress,username=user,port=ports,key_filename=key_location)
+        ssh.connect(ipaddress,username=user,key_filename='/home/{}/.ssh/{}'.format(user, key_name))
     except paramiko.AuthenticationException:
         print("[- client] Authentication Exception! ...")
 

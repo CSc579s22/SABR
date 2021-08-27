@@ -94,7 +94,7 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     works = ipaddress.strip('\n')+','+user
     print('[+ client] '+ works)
     #Insert relevant player command here
-    cl_command = "cd /home/" + user + "/AStream; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/BBB/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
+    cl_command = "cd /home/" + user + "/AStream; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/Video_Store/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
     try:
         stdin,stdout,stderr=ssh.exec_command(cl_command)
 

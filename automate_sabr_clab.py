@@ -30,12 +30,13 @@ zipf_dist = dict()
 # Configure runtime environment
 MAX_TRIALS = 1
 key_name="<name_of_private_key>"
-client_ip=[<list of client IPs>]
-server_ip=[<list of server IPs>]
-cache_ip=[<list of cache IPs>]
 port = 22
 
 # The following lists are constructed in the main method.
+server_ip=[]
+client_ip=[]
+cache_ip=[]
+
 client_ports = []
 
 client_hosts =[]
@@ -109,7 +110,11 @@ def build_ports(port):
         client_ports.append(int(port))
 
 if __name__ == "__main__":
-    # Create Client IP lists
+    # Create Node Lists
+    client_ip =  input('Please enter a space-delimited list of client IPs: ').split()
+    cache_ip =  input('Please enter a space-delimited list of cache IPs: ').split()
+    server_ip =  input('Please enter a space-delimited list of server IPs: ').split()
+    # Create Client IP Sublists
     for i in client_ip:
         client_hosts.append(i)
         client_hosts_zipf.append(i)

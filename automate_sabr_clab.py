@@ -111,9 +111,10 @@ def build_ports(port):
 
 if __name__ == "__main__":
     # Create Node Lists
-    client_ip =  input('Please enter a space-delimited list of client IPs: ').split()
-    cache_ip =  input('Please enter a space-delimited list of cache IPs: ').split()
-    server_ip =  input('Please enter a space-delimited list of server IPs: ').split()
+    key_name = input('Please enter the name of the private SSH key used (e.g. my_chameleon_key.pem): ')
+    client_ip = input('Please enter a space-delimited list of client IPs: ').split()
+    cache_ip = input('Please enter a space-delimited list of cache IPs: ').split()
+    server_ip = input('Please enter a space-delimited list of server IPs: ').split()
     # Create Client IP Sublists
     for i in client_ip:
         client_hosts.append(i)

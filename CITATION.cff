@@ -1,0 +1,15 @@
+# YAML 1.2
+---
+abstract: "An updated version of the SABR (Software-defined Adaptive Bit-Rate) Video Streaming repository using Python 3."
+authors: 
+  -
+    family-names: Divya
+    given-names: Bhat
+  -
+    family-names: Hicks
+    given-names: Mason
+cff-version: "1.1.0"
+message: "If you use this software, please cite it using these metadata."
+repository-code: "https://github.com/mwhicks-dev/SABR"
+title: SABR
+...

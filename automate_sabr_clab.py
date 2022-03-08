@@ -1,45 +1,33 @@
 #!/usr/bin/env python
-'''
+"""
     This is a Python script which is used to automate AStream clients for SABR evaluation.
-'''
-from fabric.api import *
-import random
-
+"""
 import socket
-socket.setdefaulttimeout(5)
-
 import numpy as np
-from scipy.stats import zipf
-import random
-import bisect
-import math
-
-
-import subprocess
 import paramiko
 import logging
-logging.basicConfig()
-import sys
 import threading
-import os
 import time
-from collections import defaultdict
-user="cc"
+socket.setdefaulttimeout(5)
+logging.basicConfig()
+
+AStreamDir = "/proj/QoESDN/AStream"
+user = "/users/clarkzjw"
 zipf_dist = dict()
 
 # Configure runtime environment
 MAX_TRIALS = 1
-key_name="<name_of_private_key>"
+key_name = "id_ed25519"
 port = 22
 
 # The following lists are constructed in the main method.
-server_ip=[]
-client_ip=[]
-cache_ip=[]
+server_ip = []
+client_ip = []
+cache_ip = []
 
 client_ports = []
 
-client_hosts =[]
+client_hosts = []
 client_hosts1 = []
 client_hosts2 = []
 client_hosts3 = []
@@ -48,56 +36,64 @@ client_hosts4 = []
 client_hosts_zipf = []
 
 
-
-def gen_zipf(a,n):
-    s= np.random.zipf(a,n)
-    result = (s/float(max(s)))*n
+def gen_zipf(a, n):
+    s = np.random.zipf(a, n)
+    result = (s / float(max(s))) * n
     return np.floor(result)
+
+
 '''
     This API is used to reset caches before every run
 '''
 
-def dash_server(ipaddress,run):
+
+def dash_server(ipaddress, run):
     global user
 
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        ssh.connect(ipaddress,username=user,key_filename='/home/{}/.ssh/{}'.format(user, key_name))
+        ssh.connect(ipaddress, username=user, key_filename='{}/.ssh/{}'.format(user, key_name))
     except paramiko.AuthenticationException:
         print("[- server] Authentication Exception! ...")
 
     except paramiko.SSHException:
         print("[- server] SSH Exception! ...")
 
-    works = ipaddress.strip('\n')+','+user
-    print('[+ server] '+ works)
-    stdin,stdout,stderr=ssh.exec_command("mongorestore --collection cache1 --db cachestatus bolaodump/cachestatus/cache1.bson")
+    works = ipaddress.strip('\n') + ',' + user
+    print('[+ server] ' + works)
+    stdin, stdout, stderr = ssh.exec_command(
+        "mongorestore --collection cache1 --db cachestatus bolaodump/cachestatus/cache1.bson")
 
     print("stdout: {}".format(stdout.read().decode('ascii')))
     print("stderr: {}".format(stdout.read().decode('ascii')))
     ssh.close()
+
+
 '''
     This API is used to run different clients with and without SABR modifications
 '''
+
+
 def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     global user
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        ssh.connect(ipaddress,username=user,key_filename='/home/{}/.ssh/{}'.format(user, key_name))
+        ssh.connect(ipaddress, username=user, key_filename='{}/.ssh/{}'.format(user, key_name))
     except paramiko.AuthenticationException:
         print("[- client] Authentication Exception! ...")
 
     except paramiko.SSHException:
         print("[- client] SSH Exception! ...")
 
-    works = ipaddress.strip('\n')+','+user
-    print('[+ client] '+ works)
-    #Insert relevant player command here
-    cl_command = "cd /home/" + user + "/AStream; python dist/client/dash_client.py -m http://"+str(mpd_ip)+"/Video_Store/BigBuckBunny_2s_mod" +str(int(zipf_index)+1)+ ".mpd -p bola > /dev/null &"
+    works = ipaddress.strip('\n') + ',' + user
+    print('[+ client] ' + works)
+    # Insert relevant player command here
+    cl_command = "cd " + AStreamDir + "; python dist/client/dash_client.py -m http://" + str(
+        mpd_ip) + "/Video_Store/BigBuckBunny_2s_mod" + str(int(zipf_index) + 1) + ".mpd -p basic > /dev/null &"
     try:
-        stdin,stdout,stderr=ssh.exec_command(cl_command)
+        stdin, stdout, stderr = ssh.exec_command(cl_command)
 
         print("stdout: {}".format(stdout.read().decode('ascii')))
         print("stderr: {}".format(stdout.read().decode('ascii')))
@@ -105,30 +101,36 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     except EOFError as e:
         quit()
 
+
 def build_ports(port):
     for i in range(0, len(client_ip)):
         client_ports.append(int(port))
 
+
 if __name__ == "__main__":
     # Create Node Lists
-    key_name = input('Please enter the name of the private SSH key used (e.g. my_chameleon_key.pem): ')
-    client_ip = input('Please enter a space-delimited list of client IPs: ').split()
-    cache_ip = input('Please enter a space-delimited list of cache IPs: ').split()
-    server_ip = input('Please enter a space-delimited list of server IPs: ').split()
+    # key_name = input('Please enter the name of the private SSH key used (e.g. my_chameleon_key.pem): ')
+    # client_ip = input('Please enter a space-delimited list of client IPs: ').split()
+    # cache_ip = input('Please enter a space-delimited list of cache IPs: ').split()
+    # server_ip = input('Please enter a space-delimited list of server IPs: ').split()
+    client_ip = '10.10.2.1 10.10.2.1 10.10.2.1 10.10.2.1'.split()
+    cache_ip = "10.10.1.1".split()
+    server_ip = "10.10.1.1".split()
+
     # Create Client IP Sublists
     for i in client_ip:
         client_hosts.append(i)
         client_hosts_zipf.append(i)
-    for i in client_ip[0:int(len(client_ip)/4)]:
+    for i in client_ip[0:int(len(client_ip) / 4)]:
         client_hosts1.append(i)
-    for i in client_ip[int(len(client_ip)/4):int(len(client_ip)/4)]:
+    for i in client_ip[int(len(client_ip) / 4):int(len(client_ip) / 4)]:
         client_hosts2.append(i)
-    for i in client_ip[int(len(client_ip)/2):len(client_ip) - int(len(client_ip)/4)]:
+    for i in client_ip[int(len(client_ip) / 2):len(client_ip) - int(len(client_ip) / 4)]:
         client_hosts3.append(i)
-    for i in client_ip[len(client_ip) - int(len(client_ip)/4):len(client_ip)]:
+    for i in client_ip[len(client_ip) - int(len(client_ip) / 4):len(client_ip)]:
         client_hosts4.append(i)
     # Create Client Port list
-    build_ports(port)  # Builds ports list with global port
+    build_ports(port)  # Build ports list with global port
     try:
         for client in client_hosts_zipf:
             zipf_dist[client] = gen_zipf(2, 49)

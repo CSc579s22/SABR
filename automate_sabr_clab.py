@@ -123,7 +123,7 @@ if __name__ == "__main__":
     # cache_ip = input('Please enter a space-delimited list of cache IPs: ').split()
     # server_ip = input('Please enter a space-delimited list of server IPs: ').split()
     client_ip = '10.10.2.1 10.10.2.1 10.10.2.1 10.10.2.1'.split()
-    cache_ip = "10.10.1.1".split()
+    cache_ip = "10.10.1.1 10.10.1.1 10.10.1.1 10.10.1.1".split()
     server_ip = "10.10.1.1".split()
 
     # Create Client IP Sublists

@@ -17,7 +17,7 @@ zipf_dist = dict()
 
 # Configure runtime environment
 MAX_TRIALS = 1
-key_name = "id_ed25519"
+key_name = "id_ed25519.pub"
 port = 22
 
 # The following lists are constructed in the main method.
@@ -81,7 +81,9 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
         print("ipaddress: " + ipaddress)
-        ssh.connect(ipaddress, username=user, key_filename='{}/.ssh/{}'.format(user, key_name))
+        keyname = '{}/.ssh/{}'.format(user, key_name)
+        print("keyname: " + keyname)
+        ssh.connect(ipaddress, username=user, key_filename=keyname)
     except paramiko.AuthenticationException as err:
         print("[- client] Authentication Exception: " + str(err))
     except paramiko.SSHException as err:

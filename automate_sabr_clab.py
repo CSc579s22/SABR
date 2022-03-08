@@ -95,7 +95,7 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     print('[+ client] ' + works)
     # Insert relevant player command here
     print("zipf_index " + str(int(zipf_index) + 1))
-    cl_command = "cd " + AStreamDir + "; python3 dist/client/dash_client.py -m http://" + str(
+    cl_command = "cd " + AStreamDir + "; sudo python2 dist/client/dash_client.py -m http://" + str(
         mpd_ip) + "/BigBuckBunny_2s_mod" + str(int(zipf_index) + 1) + \
         "/ftp.itec.aau.at/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" + str(int(zipf_index) + 1)\
         + ".mpd -p basic > /dev/null &"
@@ -140,39 +140,40 @@ if __name__ == "__main__":
         client_hosts4.append(i)
     # Create Client Port list
     build_ports(port)  # Build ports list with global port
-    try:
-        for client in client_hosts_zipf:
-            zipf_dist[client] = gen_zipf(2, 49)
-            print(zipf_dist[client], client)
-            zipf_index = 0
-        for no_of_trials in range(MAX_TRIALS):
-            for repeat in range(4):
-                count = 0
-                while count < len(client_ip):
-                    concat = str(client_ip[count])
-                    if (concat in client_hosts1) and ((count % 2) == 0):
-                        mpd_ip = cache_ip[0]
-                    elif (concat in client_hosts2) and ((count % 2) != 0):
-                        mpd_ip = cache_ip[1]
-                    elif (concat in client_hosts3) and ((count % 2) == 0):
-                        mpd_ip = cache_ip[2]
-                    elif (concat in client_hosts4) and ((count % 2) != 0):
-                        mpd_ip = cache_ip[3]
-                    else:
-                        mpd_ip = server_ip[0]
-                    threading.Thread(target=dash_client, args=(concat, client_ports[count], zipf_index, mpd_ip)).start()
-                    time.sleep(1)
-                    count += 1
-                time.sleep(3)
-                zipf_index += 1
-            if MAX_TRIALS > 1:
-                print("Trial {} complete!".format(no_of_trials))
-                time.sleep(310.0)
-        if zipf_index >= 43:
-            zipf_index = 0
-            for client in range(0, len(client_hosts_zipf)):
-                str_zipf = str(client_hosts_zipf[client]) + str(client_ports[client])
-                zipf_dist[str_zipf] = zipf_collect[z_index]
-                z_index += 1
-    except Exception as e:
-        print('[-] General Exception: ' + str(e))
+    for client in client_hosts_zipf:
+        zipf_dist[client] = gen_zipf(2, 49)
+        print(zipf_dist[client], client)
+        zipf_index = 0
+    for no_of_trials in range(MAX_TRIALS):
+        for repeat in range(4):
+            count = 0
+            while count < len(client_ip):
+                concat = str(client_ip[count])
+                if (concat in client_hosts1) and ((count % 2) == 0):
+                    mpd_ip = cache_ip[0]
+                elif (concat in client_hosts2) and ((count % 2) != 0):
+                    mpd_ip = cache_ip[1]
+                elif (concat in client_hosts3) and ((count % 2) == 0):
+                    mpd_ip = cache_ip[2]
+                elif (concat in client_hosts4) and ((count % 2) != 0):
+                    mpd_ip = cache_ip[3]
+                else:
+                    mpd_ip = server_ip[0]
+                threading.Thread(target=dash_client, args=(concat, client_ports[count], zipf_index, mpd_ip)).start()
+                time.sleep(1)
+                count += 1
+            time.sleep(3)
+            zipf_index += 1
+        if MAX_TRIALS > 1:
+            print("Trial {} complete!".format(no_of_trials))
+            time.sleep(310.0)
+    if zipf_index >= 43:
+        zipf_index = 0
+        for client in range(0, len(client_hosts_zipf)):
+            str_zipf = str(client_hosts_zipf[client]) + str(client_ports[client])
+            zipf_dist[str_zipf] = zipf_collect[z_index]
+            z_index += 1
+    # try:
+    #
+    # except Exception as e:
+    #     print('[-] General Exception: ' + str(e))

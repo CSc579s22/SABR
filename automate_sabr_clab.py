@@ -91,8 +91,10 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     print('[+ client] ' + works)
     # Insert relevant player command here
     print("zipf_index " + str(int(zipf_index) + 1))
-    cl_command = "cd " + AStreamDir + "; python dist/client/dash_client.py -m http://" + str(
-        mpd_ip) + "/BigBuckBunny_2s_mod" + str(int(zipf_index) + 1) + ".mpd -p basic > /dev/null &"
+    cl_command = "cd " + AStreamDir + "; python3 dist/client/dash_client.py -m http://" + str(
+        mpd_ip) + "/BigBuckBunny_2s_mod" + str(int(zipf_index) + 1) + \
+        "/ftp.itec.aau.at/datasets/DASHDataset2014/BigBuckBunny/2sec/BigBuckBunny_2s_mod" + str(int(zipf_index) + 1)\
+        + ".mpd -p basic > /dev/null &"
     try:
         print("exec ssh command: " + cl_command)
         stdin, stdout, stderr = ssh.exec_command(cl_command)
@@ -100,7 +102,8 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
         print("stdout: {}".format(stdout.read().decode('ascii')))
         print("stderr: {}".format(stdout.read().decode('ascii')))
         ssh.close()
-    except EOFError as e:
+    except EOFError as err:
+        print("error: " + str(err))
         quit()
 
 

@@ -1,17 +1,10 @@
 #!/bin/python
 
 from __future__ import division
-import pymongo
-from pymongo import MongoClient, CursorType
-#from pymongo import Connection
-import time
+from pymongo import CursorType
 from scapy.all import *
-
-import scapy_http.http
 from bson.json_util import dumps,loads
-#import json
 import pymongo
-import threading
 import time
 from datetime import datetime
 stars = lambda n: "*" * n
@@ -34,13 +27,7 @@ server_list.append(<cache3_ip>)
 server_list.append(<cache4_ip>)
 
 
-clientip_list = []
-clientip_list.append("10.10.10.7")
-clientip_list.append("10.10.10.6")
-clientip_list.append("10.10.10.8")
-clientip_list.append("10.10.10.9")
-
-
+clientip_list = ["10.10.10.7", "10.10.10.6", "10.10.10.8", "10.10.10.9"]
 
 
 def cache_miss(f_path, cl_ip):

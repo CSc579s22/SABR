@@ -80,12 +80,12 @@ def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
+        print("ipaddress: " + ipaddress)
         ssh.connect(ipaddress, username=user, key_filename='{}/.ssh/{}'.format(user, key_name))
-    except paramiko.AuthenticationException:
-        print("[- client] Authentication Exception! ...")
-
-    except paramiko.SSHException:
-        print("[- client] SSH Exception! ...")
+    except paramiko.AuthenticationException as err:
+        print("[- client] Authentication Exception: " + str(err))
+    except paramiko.SSHException as err:
+        print("[- client] SSH Exception: " + str(err))
 
     works = ipaddress.strip('\n') + ',' + user
     print('[+ client] ' + works)

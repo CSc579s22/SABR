@@ -12,7 +12,8 @@ socket.setdefaulttimeout(5)
 logging.basicConfig()
 
 AStreamDir = "/proj/QoESDN/AStream"
-user = "/users/clarkzjw"
+user = "clarkzjw"
+home = "/users/clarkzjw"
 zipf_dist = dict()
 
 # Configure runtime environment
@@ -53,7 +54,7 @@ def dash_server(ipaddress, run):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        ssh.connect(ipaddress, username=user, key_filename='{}/.ssh/{}'.format(user, key_name))
+        ssh.connect(ipaddress, username=user, key_filename='{}/.ssh/{}'.format(home, key_name))
     except paramiko.AuthenticationException:
         print("[- server] Authentication Exception! ...")
 
@@ -78,12 +79,13 @@ def dash_server(ipaddress, run):
 def dash_client(ipaddress, ports, zipf_index, mpd_ip):
     global user
     ssh = paramiko.SSHClient()
+    ssh.load_system_host_keys()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
         print("ipaddress: " + ipaddress)
-        keyname = '{}/.ssh/{}'.format(user, key_name)
+        keyname = '{}/.ssh/{}'.format(home, key_name)
         print("keyname: " + keyname)
-        ssh.connect(ipaddress, username=user, key_filename=keyname)
+        ssh.connect(ipaddress, username=user)
     except paramiko.AuthenticationException as err:
         print("[- client] Authentication Exception: " + str(err))
     except paramiko.SSHException as err:

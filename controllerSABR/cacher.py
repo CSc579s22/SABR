@@ -15,8 +15,8 @@ estimated_cache_size = current_cache_size
 
 # server_list = ["128.194.6.144", "128.194.6.157", "129.7.98.34", "129.7.98.25", "147.72.248.53"]
 # clientip_list = ["10.10.10.7", "10.10.10.8", "10.10.10.6", "10.10.10.9"]
-server_list = []
-clientip_list = []
+server_list = ["10.10.1.1"]
+clientip_list = ["10.10.2.1"]
 
 
 s_lsps = defaultdict(lambda: defaultdict(lambda: None))

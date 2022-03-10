@@ -1,12 +1,12 @@
 #!/bin/python
 
 from __future__ import division
+
+import pymongo
+from bson.json_util import dumps, loads
 from pymongo import CursorType
 from scapy.all import *
-from bson.json_util import dumps,loads
-import pymongo
-import time
-from datetime import datetime
+
 stars = lambda n: "*" * n
 
 MAX_CACHE_SIZE = 4982162063

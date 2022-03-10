@@ -14,47 +14,24 @@
 # You should have received a copy of the GNU General Public License
 # along with OpenNetMon.  If not, see <http://www.gnu.org/licenses/>.
 
-# Special thanks go to Niels van Adrichem and all people connected to the OpenNetmon project, without their work and provided samples OpenNetMon could not have been created in the way it is now.
+# Special thanks go to Niels van Adrichem and all people connected to the OpenNetmon project,
+# without their work and provided samples OpenNetMon could not have been created in the way it is now.
 
 """
 OpenNetMon.SABR
 
 """
-'''
-from pox.lib.revent.revent import EventMixin, Event
-from pox.lib.addresses import IPAddr
-from pox.lib.packet.vlan import vlan
-from pox.lib.packet.ipv4 import ipv4
-'''
-import os
-import sys
 
-from collections import defaultdict
-from collections import namedtuple
-import requests, json
-import urllib
-from datetime import datetime
 import time
-import random
-import thread
-import uuid
-#import threading
-#from multiprocessing import Process
-from pox.lib.recoco import Timer
+from collections import defaultdict
+from datetime import datetime
+
 import pymongo
-from pymongo import MongoClient
-
-
-from numpy import *
-import scipy as sp
-from pandas import *
-from rpy2.robjects.packages import importr
-import rpy2.robjects as ro
-import pandas.rpy.common as com
-from rpy2 import *
 import rpy2.robjects as RO
-from rpy2.robjects.vectors import IntVector, FloatVector
-#from threading import Timer
+from numpy import *
+from pandas import *
+from pox.lib.recoco import Timer
+from rpy2 import *
 
 #log = poxcore.getLogger()
 switches = {}

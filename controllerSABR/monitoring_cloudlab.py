@@ -1,4 +1,5 @@
-# #Copyright (C) 2013, Delft University of Technology, Faculty of Electrical Engineering, Mathematics and Computer Science, Network Architectures and Services, Niels van Adrichem
+# Copyright (C) 2013, Delft University of Technology, Faculty of Electrical Engineering,
+# Mathematics and Computer Science, Network Architectures and Services, Niels van Adrichem
 #
 # This file is part of OpenNetMon.
 #
@@ -15,40 +16,34 @@
 # You should have received a copy of the GNU General Public License
 # along with OpenNetMon.  If not, see <http://www.gnu.org/licenses/>.
 
-# Special thanks go to James McCauley and all people connected to the POX project, without their work and provided samples OpenNetMon could not have been created in the way it is now.
+# Special thanks go to James McCauley and all people connected to the POX project,
+# without their work and provided samples OpenNetMon could not have been created in the way it is now.
 
 """
 OpenNetMon.Monitoring
 
 Requires openflow.discovery and opennetmon.forwarding
 """
-import pymongo
-from pymongo import MongoClient
-from pox.core import core
-import pox.openflow.libopenflow_01 as of
-from pox.lib.revent import *
-
-import pox.lib.util as util
-from pox.lib.recoco import Timer
-
-from forwarding import ofp_match_withHash
-from datetime import datetime
-#from sleepy.mongoose import httpd
-
-from restclient import GET, POST
-import json
-
+import struct
+import time
 from collections import defaultdict
 from collections import namedtuple
-import pox.lib.packet as pkt
+from datetime import datetime
 
+import pox.lib.packet as pkt
+import pox.lib.util as util
+import pox.openflow.libopenflow_01 as of
+import pymongo
+from pox.opennetmon.forwarding import ofp_match_withHash
+from pox.core import core
+from pox.lib.addresses import IPAddr, EthAddr
+from pox.lib.recoco import Timer
+from pox.lib.revent import *
+from pox.lib.revent import *
 # include as part of the betta branch
 from pox.openflow.of_json import *
-#from pox.openflow.of_json import flow_stats_to_list
-import struct
-from pox.lib.addresses import IPAddr,EthAddr
-
-import time
+# include as part of the betta branch
+from pox.openflow.of_json import *
 
 
 log = core.getLogger()

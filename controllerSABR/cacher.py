@@ -1,10 +1,12 @@
 #!/bin/python
 
 from __future__ import division
+
+from datetime import datetime
+
+import pymongo
 from pymongo import CursorType
 from scapy.all import *
-import pymongo
-from datetime import datetime
 
 stars = lambda n: "*" * n
 
@@ -17,7 +19,6 @@ estimated_cache_size = current_cache_size
 # clientip_list = ["10.10.10.7", "10.10.10.8", "10.10.10.6", "10.10.10.9"]
 server_list = ["10.10.1.1"]
 clientip_list = ["10.10.2.1"]
-
 
 s_lsps = defaultdict(lambda: defaultdict(lambda: None))
 

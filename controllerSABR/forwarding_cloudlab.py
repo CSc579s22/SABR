@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with OpenNetMon.  If not, see <http://www.gnu.org/licenses/>.
-from operator import pos
 
 # Special thanks go to James McCauley and all people connected to the POX project, without their work and provided samples OpenNetMon could not have been created in the way it is now.
 
@@ -24,31 +23,23 @@ OpenNetMon.Forwarding
 Requires openflow.discovery
 """
 
-from pox.lib.revent.revent import EventMixin, Event
-from pox.lib.addresses import IPAddr
-from pox.lib.packet.vlan import vlan
-from pox.lib.packet.ipv4 import ipv4
-from pox.lib.recoco import Timer
+import random
+import time
+from collections import defaultdict
+from collections import namedtuple
+from datetime import datetime
 
 import pox.lib.util as poxutil
-from pox.core import core as poxcore
-
 import pox.openflow.libopenflow_01 as of
-from collections import defaultdict
-import pox.lib.packet as pkt
-
-from collections import namedtuple
-import requests, json
-import urllib
-from datetime import datetime
-import time
-import random
+import pymongo
+from pox.core import core as poxcore
+from pox.lib.packet.ipv4 import ipv4
+from pox.lib.packet.vlan import vlan
+from pox.lib.recoco import Timer
+from pox.lib.revent.revent import EventMixin, Event
 
 # import threading
 # from multiprocessing import Process
-
-import pymongo
-from pymongo import MongoClient
 
 log = poxcore.getLogger()
 

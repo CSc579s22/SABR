@@ -1,20 +1,14 @@
 #!/bin/python
 
 from __future__ import division
+
+from __builtin__ import False
+
 import pymongo
-from pymongo import MongoClient, CursorType
-#from pymongo import Connection
-import time
+from bson.json_util import dumps, loads
+from pymongo import CursorType
 from scapy.all import *
 
-import scapy_http.http
-from bson.json_util import dumps,loads
-#import json
-import pymongo
-import threading
-import time
-from datetime import datetime
-from __builtin__ import False
 stars = lambda n: "*" * n
 
 MAX_CACHE_SIZE = 4982162063

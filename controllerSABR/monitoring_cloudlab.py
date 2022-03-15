@@ -226,7 +226,7 @@ class Monitoring(object):
                 delta_tx_bytes = stat.tx_bytes - prev_tx_bytes
 
                 # self.f3.write("PortStatsReceived from %s: %s \t %s \t %s\n"%(dpidToStr(event.connection.dpid), stats, str(delta_rx_packet),str(delta_tx_bytes) ))
-                log.debug("Monitoring_Called Statistics\n")
+                log.debug("Monitoring_Called Statistics")
                 post = {"exp_id": self.experiment, "dpid": dpidToStr(event.connection.dpid),
                         "RXpackets": str(delta_rx_packet), "RXbytes": str(delta_rx_bytes),
                         "TXpackets": str(delta_tx_packet), "TXbytes": str(delta_tx_bytes), "portno": stat.port_no,

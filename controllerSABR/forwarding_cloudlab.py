@@ -315,13 +315,13 @@ def _forward_path():
     db = client.opencdn
     table = db.portmonitor
     table1 = db.serv_bandwidth
-    best_bw = 100000000000000000.0
-    best_serv = 1
-    serv_ip = "10.10.10.4"
-    serv_index = 0
-    client_index = 0
+    # best_bw = 100000000000000000.0
+    # best_serv = 1
+    # serv_ip = "10.10.10.4"
+    # serv_index = 0
+    # client_index = 0
     hop_count = s_lsps[s_keys[0][0]][1]
-    arima_in = []
+    # arima_in = []
     print("TRAFFIC_MATRIX \n")
     for i in range(len(s_keys)):
         for j in range(len(s_keys[i])):
@@ -383,7 +383,7 @@ def _forward_path():
       '''
         # post.update(gen_random_qual())
 
-        ##print("Best server is %s and available bandwidth is %d", serv_ip, best_bw)
+        # print("Best server is %s and available bandwidth is %d", serv_ip, best_bw)
         # k=k+1
         # print("ROUTING stat_query WEIGHT %d", min_bw)
 
@@ -590,9 +590,9 @@ def _install_arp(conn_dpid, match, init_event, src, ofp_in_port):
             # print clientip_list[client_index]
         log.debug("Client Index is %d and Server Index is %d and CLient IP %s", client_index, serv_index, client_ip_new)
         best_path = s_keys[client_index][serv_index]
-    best_bw = s_lsps[s_keys[client_index][serv_index]][0]
-    packet = init_event.parsed
-    first_in = init_event.port
+    # best_bw = s_lsps[s_keys[client_index][serv_index]][0]
+    # packet = init_event.parsed
+    # first_in = init_event.port
     # s_lsps[best_path][2][2] = client_port[client_ip_new]
     for i in range(0, len(s_lsps[best_path][2]) - 2, 3):  # for switch in path.keys():
         # log.debug("INSTALLING ARP: VALUE OF i %d and Length %d", i, len(s_lsps[best_path][2]))
@@ -729,7 +729,7 @@ def _install_path(conn_dpid, match, init_event, src, ofp_in_port):
             # print clientip_list[client_index]
         log.debug("Client Index is %d and Server Index is %d and CLient IP %s", client_index, serv_index, client_ip_new)
         best_path = s_keys[client_index][serv_index]
-    best_bw = s_lsps[s_keys[client_index][serv_index]][0]
+    # best_bw = s_lsps[s_keys[client_index][serv_index]][0]
     '''   
     for j in range (len(s_keys[client_index])):
        print s_keys[i][j] 

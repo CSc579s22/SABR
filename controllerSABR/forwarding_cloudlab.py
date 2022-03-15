@@ -70,40 +70,46 @@ s_keys.append(["s1-c2", "s2-c2", "s3-c2", "s4-c2", "s5-c2"])
 s_keys.append(["s1-c3", "s2-c3", "s3-c3", "s4-c3", "s5-c3"])
 s_keys.append(["s1-c4", "s2-c4", "s3-c4", "s4-c4", "s5-c4"])
 
-server_list.append("10.10.10.4")
-server_list.append("10.10.10.12")
-server_list.append("10.10.10.16")
-server_list.append("10.10.10.27")
-server_list.append("10.10.10.1")
+
+server_list.append("10.10.10.11")
+server_list.append("10.10.10.4")  # cache1
+server_list.append("10.10.10.12")  # cache2
+server_list.append("10.10.10.16")  # cache3
+server_list.append("10.10.10.27")  # cache4
+server_list.append("10.10.10.1")  # server
 
 clientip_list = []
+clientip_list.append("10.10.10.12")
 clientip_list.append("10.10.10.7")
-clientip_list.append("10.10.10.6")
+clientip_list.append("10.10.10.6")  # sw2ac3
 clientip_list.append("10.10.10.8")
 clientip_list.append("10.10.10.9")
 
 client_port = dict()
+client_port["10.10.10.12"] = 12
+client_port["10.10.10.71"] = 11  # sw3ac4
+client_port["10.10.10.72"] = 10  # sw3ac5
+client_port["10.10.10.73"] = 2  # sw3ac6
+client_port["10.10.10.74"] = 1  # sw3ac7
+client_port["10.10.10.75"] = 4  # sw3ac8
 
-client_port["10.10.10.71"] = 11
-client_port["10.10.10.72"] = 10
-client_port["10.10.10.73"] = 2
-client_port["10.10.10.74"] = 1
-client_port["10.10.10.75"] = 4
-client_port["10.10.10.61"] = 6
-client_port["10.10.10.62"] = 5
-client_port["10.10.10.63"] = 4
-client_port["10.10.10.64"] = 3
-client_port["10.10.10.65"] = 2
-client_port["10.10.10.81"] = 10
-client_port["10.10.10.82"] = 9
+client_port["10.10.10.61"] = 6  # sw4ac1
+client_port["10.10.10.62"] = 5  # sw4ac2
+client_port["10.10.10.63"] = 4  # sw4ac3
+client_port["10.10.10.64"] = 3  # sw4ac4
+client_port["10.10.10.65"] = 2  # sw4ac5
+
+client_port["10.10.10.81"] = 10  # sw3cc4
+client_port["10.10.10.82"] = 9  # sw3cc5
 client_port["10.10.10.83"] = 8
-client_port["10.10.10.84"] = 7
-client_port["10.10.10.85"] = 6
-client_port["10.10.10.91"] = 3
-client_port["10.10.10.92"] = 4
-client_port["10.10.10.93"] = 5
-client_port["10.10.10.94"] = 7
-client_port["10.10.10.95"] = 6
+client_port["10.10.10.84"] = 7  # sw3cc7
+client_port["10.10.10.85"] = 6  # sw3cc8
+
+client_port["10.10.10.91"] = 3  # sw4dc1
+client_port["10.10.10.92"] = 4  # sw4dc2
+client_port["10.10.10.93"] = 5  # sw4dc3
+client_port["10.10.10.94"] = 7  # sw4dc4
+client_port["10.10.10.95"] = 6  # sw4dc5
 
 '''
 The following contains the list of IP addresses for all cross traffic generators in the network
@@ -127,8 +133,6 @@ cross_list.append("10.10.10.9")
 
 '''
 The following is a list of Client IP addresses for the network
-
-
 '''
 client_list = []
 # client_list.append("10.10.10.61")

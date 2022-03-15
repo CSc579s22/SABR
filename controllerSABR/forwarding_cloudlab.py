@@ -1,4 +1,5 @@
-# #Copyright (C) 2013, Delft University of Technology, Faculty of Electrical Engineering, Mathematics and Computer Science, Network Architectures and Services, Niels van Adrichem
+# Copyright (C) 2013, Delft University of Technology, Faculty of Electrical Engineering,
+# Mathematics and Computer Science, Network Architectures and Services, Niels van Adrichem
 #
 # This file is part of OpenNetMon.
 #
@@ -15,7 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with OpenNetMon.  If not, see <http://www.gnu.org/licenses/>.
 
-# Special thanks go to James McCauley and all people connected to the POX project, without their work and provided samples OpenNetMon could not have been created in the way it is now.
+# Special thanks go to James McCauley and all people connected to the POX project,
+# without their work and provided samples OpenNetMon could not have been created in the way it is now.
 
 """
 OpenNetMon.Forwarding
@@ -47,9 +49,17 @@ switches = {}
 switch_ports = {}
 '''
 The following contains the list of DPIDs for all switches in the network
-
 '''
-switch_dpid = ["b2-a9-42-49-8e-48"]
+switch_dpid = ["b2-a9-42-49-8e-48",
+               "b2-a9-42-49-8e-48",
+               "b2-a9-42-49-8e-48",
+               "b2-a9-42-49-8e-48",
+               "b2-a9-42-49-8e-48",
+               "b2-a9-42-49-8e-48",
+               "b2-a9-42-49-8e-48",
+               "b2-a9-42-49-8e-48",
+               "b2-a9-42-49-8e-48"]
+
 ct_called = False
 
 s_keys = []
@@ -140,45 +150,35 @@ Set of clients at switch 3a
 s_lsps[s_keys[0][0]] = ([0, 3, [switch_dpid[3], 3, 0, switch_dpid[1], 6, 3]])
 s_lsps[s_keys[0][1]] = ([0, 3, [switch_dpid[3], 5, 0, switch_dpid[1], 2, 3, switch_dpid[2], 7, 3]])
 s_lsps[s_keys[0][2]] = ([0, 2, [switch_dpid[3], 3, 0, switch_dpid[4], 6, 1]])
-s_lsps[s_keys[0][3]] = (
-    [0, 4, [switch_dpid[3], 5, 0, switch_dpid[1], 2, 3, switch_dpid[2], 1, 3, switch_dpid[6], 2, 1]])
+s_lsps[s_keys[0][3]] = ([0, 4, [switch_dpid[3], 5, 0, switch_dpid[1], 2, 3, switch_dpid[2], 1, 3, switch_dpid[6], 2, 1]])
 s_lsps[s_keys[0][4]] = ([0, 3, [switch_dpid[3], 5, 0, switch_dpid[1], 1, 3, switch_dpid[0], 3, 4]])
 '''
 Set of clients at switch 4a
 '''
 
 s_lsps[s_keys[1][0]] = ([0, 3, [switch_dpid[7], 7, 0, switch_dpid[3], 5, 9, switch_dpid[1], 6, 3]])
-s_lsps[s_keys[1][1]] = (
-    [0, 4, [switch_dpid[7], 1, 0, switch_dpid[4], 3, 2, switch_dpid[1], 2, 4, switch_dpid[2], 7, 3]])
+s_lsps[s_keys[1][1]] = ([0, 4, [switch_dpid[7], 1, 0, switch_dpid[4], 3, 2, switch_dpid[1], 2, 4, switch_dpid[2], 7, 3]])
 s_lsps[s_keys[1][2]] = ([0, 2, [switch_dpid[7], 1, 0, switch_dpid[4], 6, 2]])
-s_lsps[s_keys[1][3]] = (
-    [0, 5,
-     [switch_dpid[7], 1, 0, switch_dpid[4], 3, 2, switch_dpid[1], 2, 4, switch_dpid[2], 1, 3, switch_dpid[6], 2, 1]])
-s_lsps[s_keys[1][4]] = (
-    [0, 4, [switch_dpid[7], 7, 0, switch_dpid[3], 5, 9, switch_dpid[1], 1, 3, switch_dpid[0], 3, 4]])
+s_lsps[s_keys[1][3]] = ([0, 5, [switch_dpid[7], 1, 0, switch_dpid[4], 3, 2, switch_dpid[1], 2, 4, switch_dpid[2], 1, 3, switch_dpid[6], 2, 1]])
+s_lsps[s_keys[1][4]] = ([0, 4, [switch_dpid[7], 7, 0, switch_dpid[3], 5, 9, switch_dpid[1], 1, 3, switch_dpid[0], 3, 4]])
 
 '''
 Set of clients at switch 3c
 '''
 s_lsps[s_keys[2][0]] = ([0, 3, [switch_dpid[5], 4, 0, switch_dpid[2], 3, 4, switch_dpid[1], 6, 2]])
 s_lsps[s_keys[2][1]] = ([0, 3, [switch_dpid[5], 4, 0, switch_dpid[2], 7, 4]])
-s_lsps[s_keys[2][2]] = (
-    [0, 4, [switch_dpid[5], 4, 0, switch_dpid[2], 3, 4, switch_dpid[1], 4, 2, switch_dpid[4], 6, 3]])
+s_lsps[s_keys[2][2]] = ([0, 4, [switch_dpid[5], 4, 0, switch_dpid[2], 3, 4, switch_dpid[1], 4, 2, switch_dpid[4], 6, 3]])
 s_lsps[s_keys[2][3]] = ([0, 2, [switch_dpid[5], 3, 0, switch_dpid[6], 2, 3]])
 s_lsps[s_keys[2][4]] = ([0, 3, [switch_dpid[5], 4, 0, switch_dpid[2], 2, 4, switch_dpid[0], 3, 5]])
 
 '''
 Set of clients at switch 4b
 '''
-s_lsps[s_keys[3][0]] = (
-    [0, 4, [switch_dpid[8], 1, 0, switch_dpid[6], 1, 4, switch_dpid[2], 3, 1, switch_dpid[1], 6, 2]])
+s_lsps[s_keys[3][0]] = ([0, 4, [switch_dpid[8], 1, 0, switch_dpid[6], 1, 4, switch_dpid[2], 3, 1, switch_dpid[1], 6, 2]])
 s_lsps[s_keys[3][1]] = ([0, 3, [switch_dpid[8], 2, 0, switch_dpid[5], 4, 5, switch_dpid[2], 7, 4]])
-s_lsps[s_keys[3][2]] = (
-    [0, 5,
-     [switch_dpid[8], 1, 0, switch_dpid[6], 1, 4, switch_dpid[2], 3, 1, switch_dpid[1], 4, 2, switch_dpid[4], 6, 3]])
+s_lsps[s_keys[3][2]] = ([0, 5, [switch_dpid[8], 1, 0, switch_dpid[6], 1, 4, switch_dpid[2], 3, 1, switch_dpid[1], 4, 2, switch_dpid[4], 6, 3]])
 s_lsps[s_keys[3][3]] = ([0, 2, [switch_dpid[8], 1, 0, switch_dpid[6], 2, 4]])
-s_lsps[s_keys[3][4]] = (
-    [0, 4, [switch_dpid[8], 2, 0, switch_dpid[5], 4, 5, switch_dpid[2], 2, 4, switch_dpid[0], 3, 5]])
+s_lsps[s_keys[3][4]] = ([0, 4, [switch_dpid[8], 2, 0, switch_dpid[5], 4, 5, switch_dpid[2], 2, 4, switch_dpid[0], 3, 5]])
 
 '''
 The following contains the information for all cross traffic paths in the network
@@ -300,7 +300,7 @@ def gen_random_qual():
 
 
 '''
-The following API implements SABR processing, i.e,computes instantaneous bottleneck bandwidth 
+The following API implements SABR processing, i.e, computes instantaneous bottleneck bandwidth 
 '''
 
 
@@ -846,9 +846,7 @@ class NewFlow(Event):
 
 
 class Switch(EventMixin):
-    _eventMixin_events = set([
-        NewFlow,
-    ])
+    _eventMixin_events = set([NewFlow, ])
 
     def __init__(self, connection, l3_matching=False):
         self.connection = connection
@@ -909,10 +907,12 @@ class Switch(EventMixin):
 
         def drop():
             """Tell the switch to drop the packet"""
-            if event.ofp.buffer_id is not None:  # nothing to drop because the packet is not in the Switch buffer
+            if event.ofp.buffer_id is not None:
+                # nothing to drop because the packet is not in the Switch buffer
                 msg = of.ofp_packet_out()
                 msg.buffer_id = event.ofp.buffer_id
-                event.ofp.buffer_id = None  # Mark as dead, copied from James McCauley, not sure what it does but it does not work otherwise
+                event.ofp.buffer_id = None
+                # Mark as dead, copied from James McCauley, not sure what it does but it does not work otherwise
                 msg.in_port = event.port
                 self.connection.send(msg)
 
@@ -932,7 +932,10 @@ class Switch(EventMixin):
             flood()
             # log.debug("Switch %s flooded multicast 0x%0.4X type packet", self, packet.effective_ethertype)
         elif packet.dst not in mac_learning:
-            flood()  # Let's first learn the location of the recipient before generating and installing any rules for this. We might flood this but that leads to further complications if half way the flood through the network the path has been learned.
+            flood()
+            # Let's first learn the location of the recipient before generating and installing any rules for this.
+            # We might flood this but that leads to further complications if half way the flood through the network
+            # the path has been learned.
             # log.debug("Switch %s flooded unicast 0x%0.4X type packet, due to unlearned MAC address", self, packet.effective_ethertype)
         elif packet.effective_ethertype == packet.ARP_TYPE:
             # These packets are sent so not-often that they don't deserve a flow
@@ -966,7 +969,9 @@ class Switch(EventMixin):
                     print(packet.find("ipv4").dstip)
             dst = mac_learning[packet.dst]
 
-            if self.l3_matching is True:  # only match on l2-properties, useful when doing experiments with UDP streams as you can insert a flow using ping and then start sending udp.
+            if self.l3_matching is True:
+                # only match on l2-properties, useful when doing experiments with UDP streams as you can insert a flow
+                # using ping and then start sending udp.
                 # if match.nw_src == "10.10.10.14" or match.nw_src== "10.10.10.2" or match.nw_src == "10.10.10.4" or match.nw_src == "10.10.10.6" or match.nw_src == "10.10.10.11" or match.nw_src == "10.10.10.7":
                 match = ofp_match_withHash()
                 rev_match = ofp_match_withHash()
@@ -997,7 +1002,8 @@ class Switch(EventMixin):
 
             _install_path(self.connection.dpid, match, event, packet.src, event.ofp.in_port)
 
-            # forward the packet directly from the last switch, there is no need to have the packet run through the complete network.
+            # forward the packet directly from the last switch,
+            # there is no need to have the packet run through the complete network.
 
             drop()
             dst = mac_learning[packet.dst]
@@ -1022,11 +1028,11 @@ class NewSwitch(Event):
 
 
 class Forwarding(EventMixin):
-    _core_name = "opennetmon_forwarding"  # we want to be poxcore.opennetmon_forwarding
-    _eventMixin_events = set([NewSwitch, ])
+    _core_name = "opennetmon_forwarding"
+    _eventMixin_events = {NewSwitch}
 
     def __init__(self, l3_matching):
-        # log.debug("Forwarding coming up")
+        log.debug("Forwarding coming up")
 
         def startup():
             poxcore.openflow.addListeners(self)
@@ -1040,7 +1046,8 @@ class Forwarding(EventMixin):
     def _handle_LinkEvent(self, event):
         link = event.link
         if event.added:
-            # log.debug("Received LinkEvent, Link Added from %s to %s over port %d", poxutil.dpid_to_str(link.dpid1), poxutil.dpid_to_str(link.dpid2), link.port1)
+            log.debug("Received LinkEvent, Link Added from %s to %s over port %d",
+                      poxutil.dpid_to_str(link.dpid1), poxutil.dpid_to_str(link.dpid2), link.port1)
             adj[link.dpid1][link.dpid2] = link.port1
             switch_ports[link.dpid1, link.port1] = link
             # switches[link.dpid1].disable_flooding(link.port1)
@@ -1048,7 +1055,7 @@ class Forwarding(EventMixin):
         else:
             log.debug("Received LinkEvent, Link Removed from %s to %s over port %d", poxutil.dpid_to_str(link.dpid1),
                       poxutil.dpid_to_str(link.dpid2), link.port1)
-            ##Disabled those two lines to prevent interference with experiment due to falsely identified disconnected links.
+            # Disabled those two lines to prevent interference with experiment due to falsely identified disconnected links.
             # del adj[link.dpid1][link.dpid2]
             # del switch_ports[link.dpid1,link.port1]
 
@@ -1061,50 +1068,18 @@ class Forwarding(EventMixin):
 
     def _handle_ConnectionUp(self, event):
         sw = Switch(event.connection, l3_matching=self.l3_matching)
-        switches[event.dpid] = sw;
+        switches[event.dpid] = sw
         self.raiseEvent(NewSwitch(sw))
-        # log.debug("New switch connection: %s", event.connection)
+        log.debug("New switch connection: %s", event.connection)
 
 
 def create_matrix():
     log.debug("Child process called\n-------------------")
-    # _forward_path
     time.sleep(5)
     t = Timer(2.0, _forward_path, recurring=True)
-    # t = threading.Timer(5.0, _forward_path)
-    # threads.append(t)
-    # t.daemon = True
     t.start()
     time.sleep(5)
-    # return 0
 
 
 def launch(l3_matching=False):
-    # threads =[]
-
     poxcore.registerNew(Forwarding, l3_matching)
-
-    # time.sleep(10)
-    # post2=gen_random_qual()
-    print("Calling Timer\n")
-    # t = Timer(5.0, _forward_path, recurring=True)
-    # t.daemon = True
-    # t.start()
-    # t.start()
-    # thread.start_new_thread(create_matrix, ())
-    # poxcore.registerNew(create_matrix)
-    '''
-    t=Timer(5.0, _forward_path, recurring=True)
-    t.daemon = True
-    t.start()
-    '''
-    '''
-    p = Process(name='daemon', target=create_matrix)
-    p.daemon = True
-    p.start()
-    #p.join()
-    '''
-    # t = threading.Timer(5.0, _forward_path)
-    # threads.append(t)
-    # t.daemon = True
-    # t.start()

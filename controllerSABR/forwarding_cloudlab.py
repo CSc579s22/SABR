@@ -49,8 +49,7 @@ switch_ports = {}
 The following contains the list of DPIDs for all switches in the network
 
 '''
-switch_dpid = ["22-77-89-c9-39-46", "3a-7a-27-30-9e-46", "8a-4b-6a-50-24-49", "c6-08-4b-80-02-43", "06-93-3b-c4-95-42",
-               "16-93-0c-f4-b7-4e", "7e-50-18-13-f8-4b", "56-23-ff-96-21-4c", "72-82-05-4f-87-42"]
+switch_dpid = ["b2-a9-42-49-8e-48"]
 ct_called = False
 
 s_keys = []
@@ -306,20 +305,12 @@ The following API implements SABR processing, i.e,computes instantaneous bottlen
 
 
 def _forward_path():
-    # RO.r('library(forecast)')
-    # t = Timer(5.0, _forward_path)
-    # t.start()
     print("--------------------FORWARDPATH-------------------")
     start_time = time.time()
-    # t = Timer(5, _forward_path)
-    # t = Timer(5.0, _forward_path)
-    # t.daemon = True
-    # t.start()
-    # print("ROUTING: Thread_count %d"%threading.activeCount())
     try:
-        client = pymongo.MongoClient("205.172.170.30")
+        client = pymongo.MongoClient("127.0.0.1")
         print("Connected successfully again!!!")
-    except pymongo.errors.ConnectionFailure, e:
+    except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB sadly: %s" % e)
     db = client.opencdn
     table = db.portmonitor
@@ -334,7 +325,7 @@ def _forward_path():
     print("TRAFFIC_MATRIX \n")
     for i in range(len(s_keys)):
         for j in range(len(s_keys[i])):
-            print s_keys[i][j]
+            print(s_keys[i][j])
             min_bw = 0.0
             for k in range(0, len(s_lsps[s_keys[i][j]][2]), 3):
                 sum_bw = 0.0
@@ -578,9 +569,9 @@ def _install_arp(conn_dpid, match, init_event, src, ofp_in_port):
     # if str(match.nw_src) in client_list and str(match.nw_src) not in server_list:
     # if str(match.nw_dst) not in client_list and str(match.nw_dst) not in server_list:
 
-    print "***************Programmed Path*************\n"
+    print("***************Programmed Path*************\n")
     for i in client_list:
-        print i
+        print(i)
     if ((match.nw_dst in client_port.keys() and match.nw_src in server_list) or (
             match.nw_dst in server_list and match.nw_src in client_port.keys())):
         if match.nw_dst in server_list:
@@ -717,9 +708,9 @@ def _install_path(conn_dpid, match, init_event, src, ofp_in_port):
     # if str(match.nw_src) in client_list and str(match.nw_src) not in server_list:
     # if str(match.nw_dst) not in client_list and str(match.nw_dst) not in server_list:
 
-    print "***************Programmed Path*************\n"
+    print("***************Programmed Path*************\n")
     for i in client_list:
-        print i
+        print(i)
     if ((match.nw_dst in client_port.keys() and match.nw_src in server_list) or (
             match.nw_dst in server_list and match.nw_src in client_port.keys())):
         if match.nw_dst in server_list:
@@ -968,14 +959,14 @@ class Switch(EventMixin):
                           packet.effective_ethertype, poxutil.dpid_to_str(event.dpid), event.port)
                 if packet.find("ipv4").srcip not in server_list and packet.find(
                         "ipv4").srcip not in client_list and packet.find("ipv4").srcip not in cross_list:
-                    print packet.find("ipv4").srcip
+                    print(packet.find("ipv4").srcip)
                 if packet.find("ipv4").dstip not in server_list and packet.find(
                         "ipv4").dstip not in client_list and packet.find("ipv4").dstip not in cross_list:
                     client_list.append(packet.find("ipv4").dstip)
-                    print packet.find("ipv4").dstip
+                    print(packet.find("ipv4").dstip)
             dst = mac_learning[packet.dst]
 
-            if self.l3_matching == True:  # only match on l2-properties, useful when doing experiments with UDP streams as you can insert a flow using ping and then start sending udp.
+            if self.l3_matching is True:  # only match on l2-properties, useful when doing experiments with UDP streams as you can insert a flow using ping and then start sending udp.
                 # if match.nw_src == "10.10.10.14" or match.nw_src== "10.10.10.2" or match.nw_src == "10.10.10.4" or match.nw_src == "10.10.10.6" or match.nw_src == "10.10.10.11" or match.nw_src == "10.10.10.7":
                 match = ofp_match_withHash()
                 rev_match = ofp_match_withHash()
@@ -1095,7 +1086,7 @@ def launch(l3_matching=False):
 
     # time.sleep(10)
     # post2=gen_random_qual()
-    print "Calling Timer\n"
+    print("Calling Timer\n")
     # t = Timer(5.0, _forward_path, recurring=True)
     # t.daemon = True
     # t.start()
